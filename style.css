@@ -4,3 +4,12 @@ body{
   font:12px/17px Arial, sans-serif;
   background:#f9f9f9;
 }
+textarea {
+    background: #f9f9f9;
+    border: 1px solid #ffa500;
+    resize:vertical;
+}
+input {
+    background: #f9f9f9;
+    border: 1px solid #ffa500;
+}
