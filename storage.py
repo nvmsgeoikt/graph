@@ -7,7 +7,10 @@ import json
 class Item():
 
     def decode(self, dict):
-        self.id = str(dict['id'])
+        if dict['id']:
+            self.id = str(dict['id'])
+        else:
+            self.id = str(uuid.uuid4())
         self.deps = dict['deps']
         self.text = dict['text']
         self.progress = dict['progress']
@@ -25,17 +28,24 @@ class Storage():
         dict = json.loads(jsontext)
         item = Item().decode(dict)
         self.datafile[item.id] = item
+        return item
 
-    def read(self, id):
-        item = None
-        try:
-            item = self.datafile[id]
-        except:
-            pass
-        if item:
-            return json.dumps(item.__dict__)
+    def read(self, id=None):
+        if id:
+            #Get one item
+            item = None
+            try:
+                item = self.datafile[str(id)]
+            except:
+                print('Unable to find item with id:' + id)
+            if item:
+                return json.dumps(item.__dict__)
         else:
-            return None;
+            #Get all items
+            items = []
+            for item_id in self.datafile.keys():
+                items.append(self.read(item_id))
+            return '[' + ','.join(items) + ']'
 
     def __init__(self):
         self.datafile = shelve.open('datafile', writeback = True)

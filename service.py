@@ -21,7 +21,8 @@ def read(id):
 @app.route("/write/<item>")
 def write(item):
     #write JSON back to file
-    return "write item: " + item
+    written_item = store.write(item)
+    return store.read(written_item.id)
 
 if __name__ == "__main__":
     app.run()
