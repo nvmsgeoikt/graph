@@ -15,9 +15,6 @@ def read():
 @app.route("/read/<id>")
 def read_id(id):
     #read JSON from file
-    return storage.read(id)
-
-def read(id):
     print("Trying to read item with id: " + id)
     item = storage.read(id)
     if item is None:
