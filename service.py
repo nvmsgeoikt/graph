@@ -3,20 +3,20 @@ from flask import Flask
 from storage import *
 app = Flask(__name__)
 
-storage = Storage()
-
 @app.route("/")
 def hello():
     return "Graph Web Service! Try to use /read/<id> or /write<item>"
 
 @app.route("/read")
 def read():
+    storage = Storage()
     return storage.read()
 
 @app.route("/read/<id>")
 def read_id(id):
     #read JSON from file
     print("Trying to read item with id: " + id)
+    storage = Storage()
     item = storage.read(id)
     if item is None:
         print("Could not find item with id: " + id)
@@ -27,6 +27,7 @@ def read_id(id):
 @app.route("/write/<item>")
 def write(item):
     #write JSON back to file
+    storage = Storage()
     written_item = storage.write(item)
     return storage.read(written_item.id)
 
