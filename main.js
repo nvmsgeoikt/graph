@@ -107,6 +107,9 @@
             if (dragged===null || dragged.node===undefined) return
             if (dragged.node !== null) dragged.node.fixed = false
             dragged.node.tempMass = 1000
+
+            editItem(dragged.node.data.id)
+
             dragged = null
             $(canvas).unbind('mousemove', handler.dragged)
             $(window).unbind('mouseup', handler.dropped)
@@ -163,6 +166,23 @@ function updateGraph() {
     })
 }
 setInterval(updateGraph, 1000)
+
+function editItem(id) {
+    $.ajax({
+        url: 'http://localhost:5000/read/' + id,
+        type: 'GET',
+        dataType: 'json',
+        data: '',
+        success: function (json_item) {
+            $("#node_id").text(json_item.id);
+            $("#title").val(json_item.title);
+            $("#dependencies").val(json_item.deps);
+            $("#progress").val(json_item.progress);
+            $("#text").val(json_item.text);
+        }
+    })
+
+}
 
 function updateClick(){
     var node_id = $("#node_id").text();
