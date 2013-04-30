@@ -145,32 +145,6 @@
 
 })(this.jQuery);
 
-function readClick(){
-/*    var node_id = $("#node_id").text();
-    var title = $("#title").val();
-    var dependencies = $("#dependencies").val();
-    var node_list = $("#node_list").text();
-    var progress = $("#progress").val();
-    var text = $("#text").val();
-    console.log(node_id + " " + dependencies + " " + node_list + " " + progress + " " + text);
-
-    $.ajax({
-        url: 'http://localhost:5000/read/' + node_id,
-        type: 'GET',
-        dataType: 'json',
-        data: '',
-        success: function (json_item) {
-            alert("Callback method in readClick()");
-            console.log("The JSON item returned is : " + json_item);
-            progress = json_item.progress;
-        }
-    });*/
-}
-
-function writeClick(){
-
-}
-
 function updateClick(){
     var node_id = $("#node_id").text();
     var title = $("#title").val();
@@ -179,6 +153,8 @@ function updateClick(){
     var progress = $("#progress").val();
     var text = $("#text").val();
 
+/*    var item_not_found = true;
+
     $.ajax({
         url: 'http://localhost:5000/read/' + node_id,
         type: 'GET',
@@ -186,8 +162,30 @@ function updateClick(){
         data: '',
         success: function (json_item) {
             alert("Callback method in updateClick()");
+            if(json_item == null){
+                return;
+            }
+            item__not_found = false;
             console.log("The JSON item returned is : " + json_item);
             progress = json_item.progress;
+        }
+    });*/
+
+    var new_item = new Object();
+    new_item.node_id = node_id;
+    new_item.title = title;
+    new_item.dependencies = dependencies;
+    new_item.node_list = node_list;
+    new_item.progress = progress;
+    new_item.text = text;
+    var new_json_item = JSON.stringify(new_item);
+    $.ajax({
+        url: 'http://localhost:5000/write/' + new_json_item,
+        type: 'GET',
+        dataType: 'json',
+        data: '',
+        success: function (json_item) {
+            alert("Callback from write");
         }
     });
 
