@@ -205,24 +205,6 @@ function updateClick(){
     var progress = $("#progress").val();
     var text = $("#text").val();
 
-/*    var item_not_found = true;
-
-    $.ajax({
-        url: 'http://localhost:5000/read/' + node_id,
-        type: 'GET',
-        dataType: 'json',
-        data: '',
-        success: function (json_item) {
-            alert("Callback method in updateClick()");
-            if(json_item == null){
-                return;
-            }
-            item__not_found = false;
-            console.log("The JSON item returned is : " + json_item);
-            progress = json_item.progress;
-        }
-    });*/
-
     var new_item = new Object();
     new_item.id = node_id;
     new_item.title = title;
