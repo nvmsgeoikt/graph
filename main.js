@@ -146,7 +146,8 @@
 })(this.jQuery);
 
 function readClick(){
-    var node_id = $("#node_id").text();
+/*    var node_id = $("#node_id").text();
+    var title = $("#title").val();
     var dependencies = $("#dependencies").val();
     var node_list = $("#node_list").text();
     var progress = $("#progress").val();
@@ -159,12 +160,35 @@ function readClick(){
         dataType: 'json',
         data: '',
         success: function (json_item) {
+            alert("Callback method in readClick()");
+            console.log("The JSON item returned is : " + json_item);
+            progress = json_item.progress;
+        }
+    });*/
+}
+
+function writeClick(){
+
+}
+
+function updateClick(){
+    var node_id = $("#node_id").text();
+    var title = $("#title").val();
+    var dependencies = $("#dependencies").val();
+    var node_list = $("#node_list").text();
+    var progress = $("#progress").val();
+    var text = $("#text").val();
+
+    $.ajax({
+        url: 'http://localhost:5000/read/' + node_id,
+        type: 'GET',
+        dataType: 'json',
+        data: '',
+        success: function (json_item) {
+            alert("Callback method in updateClick()");
             console.log("The JSON item returned is : " + json_item);
             progress = json_item.progress;
         }
     });
-}
-
-function writeClick(){
 
 }
