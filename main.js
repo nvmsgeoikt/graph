@@ -41,7 +41,7 @@
         // which allow you to step through the actual node objects but also pass an
         // x,y point in the screen's coordinate system
         // 
-        ctx.fillStyle = "white"
+        ctx.fillStyle = "#f9f9f9"
         ctx.fillRect(0,0, canvas.width, canvas.height)
         
         particleSystem.eachEdge(function(edge, pt1, pt2){
