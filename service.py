@@ -1,6 +1,9 @@
 #!/usr/bin/python
 from flask import Flask
+from crossdomain import *
+
 from storage import *
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -8,11 +11,13 @@ def hello():
     return "Graph Web Service! Try to use /read/<id> or /write<item>"
 
 @app.route("/read")
+@crossdomain(origin='*')
 def read():
     storage = Storage()
     return storage.read()
 
 @app.route("/read/<id>")
+@crossdomain(origin='*')
 def read_id(id):
     #read JSON from file
     print("Trying to read item with id: " + id)
@@ -25,6 +30,7 @@ def read_id(id):
     return item;
 
 @app.route("/write/<item>")
+@crossdomain(origin='*')
 def write(item):
     #write JSON back to file
     storage = Storage()
