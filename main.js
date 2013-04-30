@@ -66,6 +66,15 @@
           var w = 10
           ctx.fillStyle = (node.data.alone) ? "orange" : "black"
           ctx.fillRect(pt.x-w/2, pt.y-w/2, w,w)
+            ctx.font="14px Verdana";
+            // Create gradient
+            var gradient=ctx.createLinearGradient(pt.x-w,pt.y-w,pt.x+w,pt.y+w);
+            gradient.addColorStop("0","magenta");
+            gradient.addColorStop("0.5","blue");
+            gradient.addColorStop("1.0","red");
+            // Fill with gradient
+            ctx.fillStyle=gradient;
+            ctx.fillText(node.data.title,pt.x+w,pt.y);
         })    			
       },
       
@@ -188,7 +197,6 @@ function updateClick(){
     var node_id = $("#node_id").text();
     var title = $("#title").val();
     var dependencies = $("#dependencies").val();
-    var node_list = $("#node_list").text();
     var progress = $("#progress").val();
     var text = $("#text").val();
 
@@ -214,7 +222,6 @@ function updateClick(){
     new_item.id = node_id;
     new_item.title = title;
     new_item.deps = dependencies;
-    new_item.node_list = node_list;
     new_item.progress = progress;
     new_item.text = text;
     var new_json_item = JSON.stringify(new_item);
