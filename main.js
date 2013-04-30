@@ -73,7 +73,11 @@
             gradient.addColorStop("0.5","blue");
             gradient.addColorStop("1.0","red");
             // Fill with gradient
-            ctx.fillStyle=gradient;
+            var fill = gradient;
+            if (node.data.progress == 100) {
+                fill = "green";
+            }
+            ctx.fillStyle=fill;
             ctx.fillText(node.data.title,pt.x+w,pt.y);
         })    			
       },
@@ -171,6 +175,7 @@ function updateGraph() {
                     }
                 }
             }
+            sys.renderer.redraw()
         }
     })
 }
