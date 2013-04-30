@@ -1,14 +1,18 @@
 from flask import Flask
+from storage import *
 app = Flask(__name__)
+
+storage = Storage()
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "Graph Web Service! Try to use /read/<id> or /write<item>"
 
 @app.route("/read/<id>")
 def read(id):
     #read JSON from file
-    return "read id: " + id
+    item = storage.read(id)
+    return store.write(json.dumps(item.__dict__))
 
 @app.route("/write/<item>")
 def write(item):

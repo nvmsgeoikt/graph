@@ -119,6 +119,8 @@
         $(canvas).mousedown(handler.clicked);
 
       },
+
+
       
     }
     return that
@@ -136,21 +138,17 @@
     sys.addEdge('a','e')
     sys.addNode('f', {alone:true, mass:.25})
 
-    // or, equivalently:
-    //
-    // sys.graft({
-    //   nodes:{
-    //     f:{alone:true, mass:.25}
-    //   }, 
-    //   edges:{
-    //     a:{ b:{},
-    //         c:{},
-    //         d:{},
-    //         e:{}
-    //     }
-    //   }
-    // })
-    
+
+
+
   })
 
 })(this.jQuery);
+
+function readClick(){
+    alert("Read was clicked!");
+}
+
+function writeClick(){
+    alert("Write was clicked!");
+}
