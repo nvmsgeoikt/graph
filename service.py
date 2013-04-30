@@ -8,8 +8,12 @@ storage = Storage()
 def hello():
     return "Graph Web Service! Try to use /read/<id> or /write<item>"
 
+@app.route("/read")
+def read():
+    return storage.read()
+
 @app.route("/read/<id>")
-def read(id):
+def read_id(id):
     #read JSON from file
     return storage.read(id)
 
