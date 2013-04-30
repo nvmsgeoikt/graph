@@ -121,10 +121,9 @@
       }
     }
     return that
-  }    
-
+  }
   $(document).ready(function(){
-    var sys = arbor.ParticleSystem(1000, 600, 0.5) // create the system with sensible repulsion/stiffness/friction
+    sys = arbor.ParticleSystem(1000, 600, 0.5) // create the system with sensible repulsion/stiffness/friction
     sys.parameters({gravity:true}) // use center-gravity to make the graph settle nicely (ymmv)
     sys.renderer = Renderer("#viewport") // our newly created renderer will have its .init() method called shortly by sys...
 
@@ -134,22 +133,22 @@
     sys.addEdge('a','d')
     sys.addEdge('a','e')
     sys.addNode('f', {alone:true, mass:.25})*/
-    updateGraph(sys)
+    updateGraph()
   })
 
 })(this.jQuery);
 
-function updateGraph(sys) {
+var sys;
+
+function updateGraph() {
     $.ajax({
         url: 'http://localhost:5000/read',
         type: 'GET',
         dataType: 'json',
         data: '',
         success: function (json_items) {
-            console.log("The JSON items returned are : " + json_items);
             for (var i=0; i<json_items.length; i++) {
                 item = json_items[i]
-                console.log(item)
                 sys.addNode(item.id, item)
                 deps = item.deps.split(',')
                 for (var j=0; j<deps.length; j++) {
@@ -163,6 +162,7 @@ function updateGraph(sys) {
         }
     })
 }
+setInterval(updateGraph, 1000)
 
 function updateClick(){
     var node_id = $("#node_id").text();
@@ -191,9 +191,9 @@ function updateClick(){
     });*/
 
     var new_item = new Object();
-    new_item.node_id = node_id;
+    new_item.id = node_id;
     new_item.title = title;
-    new_item.dependencies = dependencies;
+    new_item.deps = dependencies;
     new_item.node_list = node_list;
     new_item.progress = progress;
     new_item.text = text;
@@ -204,8 +204,8 @@ function updateClick(){
         dataType: 'json',
         data: '',
         success: function (json_item) {
-            alert("Callback from write");
         }
     });
+    updateGraph()
 
 }
