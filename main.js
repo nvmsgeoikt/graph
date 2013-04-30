@@ -168,7 +168,6 @@ function updateClick(){
     var node_id = $("#node_id").text();
     var title = $("#title").val();
     var dependencies = $("#dependencies").val();
-    var node_list = $("#node_list").text();
     var progress = $("#progress").val();
     var text = $("#text").val();
 
@@ -194,7 +193,6 @@ function updateClick(){
     new_item.id = node_id;
     new_item.title = title;
     new_item.deps = dependencies;
-    new_item.node_list = node_list;
     new_item.progress = progress;
     new_item.text = text;
     var new_json_item = JSON.stringify(new_item);
