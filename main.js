@@ -146,9 +146,25 @@
 })(this.jQuery);
 
 function readClick(){
-    alert("Read was clicked!");
+    var node_id = $("#node_id").text();
+    var dependencies = $("#dependencies").val();
+    var node_list = $("#node_list").text();
+    var progress = $("#progress").val();
+    var text = $("#text").val();
+    console.log(node_id + " " + dependencies + " " + node_list + " " + progress + " " + text);
+
+    $.ajax({
+        url: 'http://localhost:5000/read/' + node_id,
+        type: 'GET',
+        dataType: 'json',
+        data: '',
+        success: function (json_item) {
+            console.log("The JSON item returned is : " + json_item);
+            progress = json_item.progress;
+        }
+    });
 }
 
 function writeClick(){
-    alert("Write was clicked!");
+
 }

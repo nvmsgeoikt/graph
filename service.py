@@ -17,6 +17,15 @@ def read_id(id):
     #read JSON from file
     return storage.read(id)
 
+def read(id):
+    print("Trying to read item with id: " + id)
+    item = storage.read(id)
+    if item is None:
+        print("Could not find item with id: " + id)
+        return None;
+    print("Retrieved Item is : " + item)
+    return item;
+
 @app.route("/write/<item>")
 def write(item):
     #write JSON back to file
