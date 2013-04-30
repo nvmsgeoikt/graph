@@ -11,6 +11,7 @@ class Item():
             self.id = str(dict['id'])
         else:
             self.id = str(uuid.uuid4())
+        self.title = dict['title']
         self.deps = dict['deps']
         self.text = dict['text']
         self.progress = dict['progress']
@@ -18,6 +19,7 @@ class Item():
 
     def __init__(self):
         self.id = str(uuid.uuid4())
+        self.title = ''
         self.deps = ''
         self.text = ''
         self.progress = 0
