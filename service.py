@@ -11,13 +11,13 @@ def hello():
 @app.route("/read/<id>")
 def read(id):
     #read JSON from file
-    item = storage.read(id)
-    return store.write(json.dumps(item.__dict__))
+    return storage.read(id)
 
 @app.route("/write/<item>")
 def write(item):
     #write JSON back to file
-    return "write item: " + item
+    written_item = store.write(item)
+    return store.read(written_item.id)
 
 if __name__ == "__main__":
     app.run()
