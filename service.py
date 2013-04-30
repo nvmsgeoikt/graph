@@ -10,9 +10,13 @@ def hello():
 
 @app.route("/read/<id>")
 def read(id):
-    #read JSON from file
+    print("Trying to read item with id: " + id)
     item = storage.read(id)
-    return store.write(json.dumps(item.__dict__))
+    if item is None:
+        print("Could not find item with id: " + id)
+        return None;
+    print("Retrieved Item is : " + item)
+    return item;
 
 @app.route("/write/<item>")
 def write(item):
