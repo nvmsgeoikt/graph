@@ -40,7 +40,7 @@
         // the screen yourself, or use the convenience iterators .eachNode (and .eachEdge)
         // which allow you to step through the actual node objects but also pass an
         // x,y point in the screen's coordinate system
-        // 
+        //
         ctx.fillStyle = "#f9f9f9"
         ctx.fillRect(0,0, canvas.width, canvas.height)
         
@@ -118,10 +118,7 @@
         // start listening
         $(canvas).mousedown(handler.clicked);
 
-      },
-
-
-      
+      }
     }
     return that
   }    
@@ -132,18 +129,40 @@
     sys.renderer = Renderer("#viewport") // our newly created renderer will have its .init() method called shortly by sys...
 
     // add some nodes to the graph and watch it go...
-    sys.addEdge('a','b')
+    /*sys.addEdge('a','b')
     sys.addEdge('a','c')
     sys.addEdge('a','d')
     sys.addEdge('a','e')
-    sys.addNode('f', {alone:true, mass:.25})
-
-
-
-
+    sys.addNode('f', {alone:true, mass:.25})*/
+    updateGraph(sys)
   })
 
 })(this.jQuery);
+
+function updateGraph(sys) {
+    $.ajax({
+        url: 'http://localhost:5000/read',
+        type: 'GET',
+        dataType: 'json',
+        data: '',
+        success: function (json_items) {
+            console.log("The JSON items returned are : " + json_items);
+            for (var i=0; i<json_items.length; i++) {
+                item = json_items[i]
+                console.log(item)
+                sys.addNode(item.id, item)
+                deps = item.deps.split(',')
+                for (var j=0; j<deps.length; j++) {
+                    dep = deps[j];
+                    if (dep.length > 0) {
+                        console.log(item.id + ' -> ' + dep)
+                        sys.addEdge(item.id, dep)
+                    }
+                }
+            }
+        }
+    })
+}
 
 function updateClick(){
     var node_id = $("#node_id").text();
