@@ -51,11 +51,22 @@
 
           // draw a line from pt1 to pt2
           ctx.strokeStyle = "rgba(0,0,0, .333)"
-          ctx.lineWidth = 1
+          ctx.lineWidth = 2
           ctx.beginPath()
           ctx.moveTo(pt1.x, pt1.y)
           ctx.lineTo(pt2.x, pt2.y)
           ctx.stroke()
+          ctx.fillStyle = "#ffa500"
+          var dispX = pt2.x-pt1.x
+          var dispY = pt2.y-pt1.y
+          ctx.restore()
+          var A = Math.atan2(dispY, dispX)
+          var c = 10
+          var b = c * Math.cos(A)
+          var a = c * Math.sin(A)          
+          var w = 7
+          ctx.fillRect(pt2.x-w/2-b, pt2.y-w/2-a, w,w)
+          ctx.restore()
         })
 
         particleSystem.eachNode(function(node, pt){
